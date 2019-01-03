@@ -6,26 +6,27 @@ namespace Venom
     internal static class Sites
     {
         private const string BaseUri = "http://www.{0}.net";
-        private static readonly string MetalInjection;
-        private static readonly string MetalSucks;
+        private const string MetalInjection = "metalinjection";
+        private const string MetalSucks = "metalsucks";
+        private static readonly string MetalInjectionUri;
+        private static readonly string MetalSucksUri;
 
         static Sites()
         {
-            MetalInjection = string.Format(BaseUri, "metalinjection");
-            MetalSucks = string.Format(BaseUri, "metalsucks");
+            MetalInjectionUri = string.Format(BaseUri, MetalInjection);
+            MetalSucksUri = string.Format(BaseUri, MetalSucks);
         }
 
         internal static IEnumerable<Uri> Uris()
         {
-            yield return new Uri(CreateMIUri("tour-dates"));
-            yield return new Uri(CreateMSUri("tour-de-force"));
-            yield return new Uri(CreateMIUri("reviews"));
-            yield return new Uri(CreateMSUri("reviews"));
-            yield return new Uri(CreateMIUri("video"));
-            yield return new Uri(CreateMSUri("cinemetal"));
+            yield return new Uri(CreateCategoryUri(MetalInjectionUri, "tour-dates"));
+            yield return new Uri(CreateCategoryUri(MetalSucksUri, "tour-de-force"));
+            yield return new Uri(CreateCategoryUri(MetalInjectionUri, "reviews"));
+            yield return new Uri(CreateCategoryUri(MetalSucksUri, "reviews"));
+            yield return new Uri(CreateCategoryUri(MetalInjectionUri, "video"));
+            yield return new Uri(CreateCategoryUri(MetalSucksUri, "cinemetal"));
         }
 
-        private static string CreateMIUri(string category) => $"{MetalInjection}/category/{category}";
-        private static string CreateMSUri(string category) => $"{MetalSucks}/category/{category}";
+        private static string CreateCategoryUri(string site, string category) => $"{site}/category/{category}";
     }
 }
