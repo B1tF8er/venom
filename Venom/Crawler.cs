@@ -2,33 +2,31 @@ namespace Venom
 {
     using HtmlAgilityPack;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     
     internal class Crawler
     {
-        internal void Crawl()
+        internal void Crawl(IEnumerable<Site> sites)
         {
-            foreach (var uri in Sites.Uris())
-                Crawl(uri);
+            var categories = sites.SelectMany(s => s.Categories());
+
+            foreach (var category in categories)
+                Crawl(category.Type, category.Uri);
         }
 
-        private void Crawl(Uri uri)
+        private void Crawl(Type type, Uri uri)
         {
-            var html = GetHtml(uri);
-            
-            Parse(html);
+            var parser = new Parser(type, uri);
+            parser.Parse(GetHtml(uri));
         }
-
+        
         private HtmlDocument GetHtml(Uri uri)
         {
             var web = new HtmlWeb();
             var html = web.Load(uri);
 
             return html;
-        }
-
-        private void Parse(HtmlDocument html)
-        {
-            // TODO: convert to local model then save to DB
         }
     }
 }
