@@ -17,8 +17,16 @@ namespace Venom
 
         private void Crawl(Type type, Uri uri)
         {
-            var parser = new Parser(type, uri);
-            parser.Parse(GetHtml(uri));
+            var parser = ParserFactory.GetParser(type);
+
+            if (uri.IsTourCategory())
+                parser.ParseTours(GetHtml(uri));
+
+            if (uri.IsReviewCategory())
+                parser.ParseReviews(GetHtml(uri));
+    
+            if (uri.IsVideoCategory())
+                parser.ParseVideos(GetHtml(uri));
         }
         
         private HtmlDocument GetHtml(Uri uri)
