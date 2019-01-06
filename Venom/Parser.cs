@@ -16,11 +16,11 @@ namespace Venom
 
         internal void Parse(HtmlDocument html)
         {
-            if (uri.PathAndQuery.Contains("tour"))
+            if (uri.IsTourCategory())
                 ParseTours(html);
-            if (uri.PathAndQuery.Contains("review"))
+            if (uri.IsReviewCategory())
                 ParseReviews(html);
-            if (uri.PathAndQuery.Contains("video") || uri.PathAndQuery.Contains("cine"))
+            if (uri.IsVideoCategory())
                 ParseVideos(html);
         }
 
