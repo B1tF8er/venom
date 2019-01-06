@@ -1,11 +1,10 @@
 namespace Venom
 {
     using HtmlAgilityPack;
+    using System;
     
     public interface IParser
     {
-        void ParseReviews(HtmlDocument html);
-        void ParseTours(HtmlDocument html);
-        void ParseVideos(HtmlDocument html);
+        void Parse(HtmlDocument html, Uri uri);
     }
 }

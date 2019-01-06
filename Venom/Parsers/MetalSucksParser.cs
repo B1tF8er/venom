@@ -1,6 +1,7 @@
 namespace Venom
 {
     using HtmlAgilityPack;
+    using System;
 
     internal class MetalSucksParser : IParser
     {
@@ -8,17 +9,27 @@ namespace Venom
         {
         }
 
-        public void ParseReviews(HtmlDocument html)
+        public void Parse(HtmlDocument html, Uri uri)
+        {
+            if (uri.IsTourCategory())
+                ParseTours(html);
+            else if (uri.IsReviewCategory())
+                ParseReviews(html);
+            else if (uri.IsVideoCategory())
+                ParseVideos(html);
+        }
+
+        private void ParseReviews(HtmlDocument html)
         {
             return;
         }
 
-        public void ParseTours(HtmlDocument html)
+        private void ParseTours(HtmlDocument html)
         {
             return;
         }
 
-        public void ParseVideos(HtmlDocument html)
+        private void ParseVideos(HtmlDocument html)
         {
             return;
         }
