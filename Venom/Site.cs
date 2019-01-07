@@ -19,14 +19,14 @@ namespace Venom
         {
             if (type == Type.MetalInjection)
             {
-                yield return new Category(type, siteUri, "tour-dates");
                 yield return new Category(type, siteUri, "reviews");
+                yield return new Category(type, siteUri, "tour-dates");
                 yield return new Category(type, siteUri, "video");
             }
             else if (type == Type.MetalSucks)
             {
-                yield return new Category(type, siteUri, "tour-de-force");
                 yield return new Category(type, siteUri, "reviews");
+                yield return new Category(type, siteUri, "tour-de-force");
                 yield return new Category(type, siteUri, "cinemetal");
             }
         }
