@@ -1,37 +1,43 @@
 namespace Venom
 {
+    using Fizzler.Systems.HtmlAgilityPack;
     using HtmlAgilityPack;
     using System;
 
-    internal class MetalSucksParser : IParser
+    internal class MetalSucksParser : BaseParser
     {
-        internal MetalSucksParser()
-        {
-        }
+        internal MetalSucksParser() : base(ToMetalInjectionArticle) {}
 
-        public void Parse(HtmlDocument html, Uri uri)
+        protected override void ParseReviews(HtmlNode documentNode)
         {
-            if (uri.IsTourCategory())
-                ParseTours(html);
-            else if (uri.IsReviewCategory())
-                ParseReviews(html);
-            else if (uri.IsVideoCategory())
-                ParseVideos(html);
-        }
+            var reviews = GetArticles(documentNode, "article.category-reviews");
 
-        private void ParseReviews(HtmlDocument html)
-        {
+            // TODO: save to database
+
             return;
         }
 
-        private void ParseTours(HtmlDocument html)
+        protected override void ParseTours(HtmlNode documentNode)
         {
+            var tours = GetArticles(documentNode, "article.category-tour-dates");
+
+            // TODO: save to database
+
             return;
         }
 
-        private void ParseVideos(HtmlDocument html)
+        protected override void ParseVideos(HtmlNode documentNode)
         {
+            var videos = GetArticles(documentNode, "article.video");
+
+            // TODO: save to database
+
             return;
+        }
+
+        private static Article ToMetalInjectionArticle(HtmlNode node)
+        {
+            return new Article();
         }
     }
 }

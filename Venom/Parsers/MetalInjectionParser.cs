@@ -1,70 +1,58 @@
 namespace Venom
 {
-    using HtmlAgilityPack;
     using Fizzler.Systems.HtmlAgilityPack;
+    using HtmlAgilityPack;
     using System;
     using System.Linq;
     using System.Collections.Generic;
 
-    internal class MetalInjectionParser : IParser
+    internal class MetalInjectionParser : BaseParser
     {
-        internal MetalInjectionParser()
-        {
-        }
+        internal MetalInjectionParser() : base(ToMetalInjectionArticle) {}
 
-        public void Parse(HtmlDocument html, Uri uri)
+        protected override void ParseReviews(HtmlNode documentNode)
         {
-            if (uri.IsReviewCategory())
-                ParseReviews(html);
-            else if (uri.IsTourCategory())
-                ParseTours(html);
-            else if (uri.IsVideoCategory())
-                ParseVideos(html);
-        }
-
-        private void ParseReviews(HtmlDocument html)
-        {
-            var reviews = GetArticles(html.DocumentNode, "category-reviews");
+            var reviews = GetArticles(documentNode, "article.category-reviews");
 
             // TODO: save to database
 
             return;
         }
 
-        private void ParseTours(HtmlDocument html)
+        protected override void ParseTours(HtmlNode documentNode)
         {
-            var tours = GetArticles(html.DocumentNode, "category-tour-dates");
+            var tours = GetArticles(documentNode, "article.category-tour-dates");
 
             // TODO: save to database
 
             return;
         }
 
-        private void ParseVideos(HtmlDocument html)
+        protected override void ParseVideos(HtmlNode documentNode)
         {
-            var videos = GetArticles(html.DocumentNode, "video");
+            var videos = GetArticles(documentNode, "article.video");
 
             // TODO: save to database
 
             return;
         }
 
-        private IEnumerable<Article> GetArticles(HtmlNode documentNode, string category) =>
-            documentNode.QuerySelectorAll($"article.{category}").Select(ToArticle);
-
-        private Func<HtmlNode, Article> ToArticle = node => {
+        private static Article ToMetalInjectionArticle(HtmlNode node)
+        {
             var meta = node.QuerySelector(".content .meta > a");
 
-            return new Article {
+            return new Article
+            {
                 Uri = node.QuerySelector("a").Attributes.FirstOrDefault().DeEntitizeValue,
                 Title = node.QuerySelector(".content .title").InnerText,
-                Author = new Author {
+                Author = new Author
+                {
                     Name = meta.InnerHtml,
                     Uri = meta.Attributes.FirstOrDefault().DeEntitizeValue,
                     Date = Convert.ToDateTime(meta.ParentNode.InnerHtml.Split('|').LastOrDefault().Trim())
                 },
                 Category = node.QuerySelector(".content .category > a").InnerHtml
             };
-        };
+        }
     }
 }
