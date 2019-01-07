@@ -13,6 +13,6 @@ namespace Venom
             Uri = new Uri(CreateCategoryUri(site, category));
         }
 
-        private string CreateCategoryUri(string site, string category) => $"{site}/category/{category}";
+        private string CreateCategoryUri(string site, string category) => $"{site}/{category}";
     }
 }

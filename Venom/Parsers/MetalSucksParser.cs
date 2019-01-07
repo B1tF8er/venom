@@ -6,7 +6,7 @@ namespace Venom
 
     internal class MetalSucksParser : BaseParser
     {
-        internal MetalSucksParser() : base(ToMetalInjectionArticle) {}
+        internal MetalSucksParser() : base(ToMetalSucksArticle) {}
 
         protected override void ParseReviews(HtmlNode documentNode)
         {
@@ -35,7 +35,7 @@ namespace Venom
             return;
         }
 
-        private static Article ToMetalInjectionArticle(HtmlNode node)
+        private static Article ToMetalSucksArticle(HtmlNode node)
         {
             return new Article();
         }

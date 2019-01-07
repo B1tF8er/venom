@@ -30,7 +30,7 @@ namespace Venom
 
         protected override void ParseVideos(HtmlNode documentNode)
         {
-            var videos = GetArticles(documentNode, "article.video");
+            var videos = GetArticles(documentNode, "article.type-video");
 
             // TODO: save to database
 

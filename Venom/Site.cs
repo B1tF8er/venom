@@ -19,9 +19,9 @@ namespace Venom
         {
             if (type == Type.MetalInjection)
             {
-                yield return new Category(type, siteUri, "reviews");
-                yield return new Category(type, siteUri, "tour-dates");
-                yield return new Category(type, siteUri, "video");
+                yield return new Category(type, siteUri, "category/reviews");
+                yield return new Category(type, siteUri, "category/tour-dates");
+                yield return new Category(type, siteUri, "channels/music-videos");
             }
             else if (type == Type.MetalSucks)
             {

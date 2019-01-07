@@ -10,7 +10,7 @@ namespace Venom
     {
         private readonly Func<HtmlNode, Article> toArticle;
 
-        internal BaseParser(Func<HtmlNode, Article>  toArticle) =>
+        internal BaseParser(Func<HtmlNode, Article> toArticle) =>
             this.toArticle = toArticle ?? throw new ArgumentNullException(nameof(toArticle));
 
         public void Parse(HtmlDocument html, Uri uri)
