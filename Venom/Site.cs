@@ -25,9 +25,9 @@ namespace Venom
             }
             else if (type == Type.MetalSucks)
             {
-                yield return new Category(type, siteUri, "reviews");
-                yield return new Category(type, siteUri, "tour-de-force");
-                yield return new Category(type, siteUri, "cinemetal");
+                yield return new Category(type, siteUri, "category/reviews");
+                yield return new Category(type, siteUri, "category/tour-de-force");
+                yield return new Category(type, siteUri, "category/cinemetal");
             }
         }
     }
