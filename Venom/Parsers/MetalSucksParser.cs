@@ -4,13 +4,10 @@ namespace Venom
     using HtmlAgilityPack;
     using System;
     using System.Linq;
+    using static Constants.MetalSucksConstants;
 
-    internal class MetalSucksParser : BaseParser
+    internal class MetalSucksParser : Parser
     {
-        private const string ReviewsSelector = "article[itemtype='http://schema.org/Review']";
-        private const string ToursSelector = "article[itemtype='http://schema.org/NewsArticle']";
-        private const string VideosSelector = "article[itemtype='http://schema.org/VideoObject']";
-
         internal MetalSucksParser() : base(ToMetalSucksArticle) {}
 
         protected override void ParseReviews(HtmlNode documentNode)
@@ -42,19 +39,19 @@ namespace Venom
 
         private static Article ToMetalSucksArticle(HtmlNode node)
         {
-            var meta = node.QuerySelector(".content-block .author > a");
+            var author = node.QuerySelector(AuthorSelector);
 
             return new Article
             {
-                Uri = node.QuerySelector("span[itemprop='url'] a.full-cover").Attributes.FirstOrDefault().DeEntitizeValue,
-                Title = node.QuerySelector(".post-title a").InnerText,
+                Uri = node.QuerySelector(UriSelector).Attributes.FirstOrDefault().DeEntitizeValue,
+                Title = node.QuerySelector(TilteSelector).InnerText,
                 Author = new Author
                 {
-                    Name = meta.InnerHtml,
-                    Uri = meta.Attributes.FirstOrDefault().DeEntitizeValue,
-                    Date = Convert.ToDateTime(meta.ParentNode.ParentNode.QuerySelector("time").Attributes[1].DeEntitizeValue)
+                    Name = author.InnerHtml,
+                    Uri = author.Attributes.FirstOrDefault().DeEntitizeValue,
+                    Date = Convert.ToDateTime(author.ParentNode.ParentNode.QuerySelector(TimeSelector).Attributes[1].DeEntitizeValue)
                 },
-                Category = node.QuerySelector("span[itemprop='url'] a.category-tag").InnerHtml
+                Category = node.QuerySelector(CategorySelector).InnerHtml
             };
         }
     }

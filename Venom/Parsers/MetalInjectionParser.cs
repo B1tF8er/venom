@@ -4,14 +4,10 @@ namespace Venom
     using HtmlAgilityPack;
     using System;
     using System.Linq;
-    using System.Collections.Generic;
+    using static Constants.MetalInjectionConstants;
 
-    internal class MetalInjectionParser : BaseParser
+    internal class MetalInjectionParser : Parser
     {
-        private const string ReviewsSelector = "article.category-reviews";
-        private const string ToursSelector = "article.category-tour-dates";
-        private const string VideosSelector = "article.type-video";
-
         internal MetalInjectionParser() : base(ToMetalInjectionArticle) {}
 
         protected override void ParseReviews(HtmlNode documentNode)
@@ -43,19 +39,19 @@ namespace Venom
 
         private static Article ToMetalInjectionArticle(HtmlNode node)
         {
-            var meta = node.QuerySelector(".content .meta > a");
+            var author = node.QuerySelector(AuthorSelector);
 
             return new Article
             {
-                Uri = node.QuerySelector("a").Attributes.FirstOrDefault().DeEntitizeValue,
-                Title = node.QuerySelector(".content .title").InnerText,
+                Uri = node.QuerySelector(UriSelector).Attributes.FirstOrDefault().DeEntitizeValue,
+                Title = node.QuerySelector(TilteSelector).InnerText,
                 Author = new Author
                 {
-                    Name = meta.InnerHtml,
-                    Uri = meta.Attributes.FirstOrDefault().DeEntitizeValue,
-                    Date = Convert.ToDateTime(meta.ParentNode.InnerHtml.Split('|').LastOrDefault().Trim())
+                    Name = author.InnerHtml,
+                    Uri = author.Attributes.FirstOrDefault().DeEntitizeValue,
+                    Date = Convert.ToDateTime(author.ParentNode.InnerHtml.Split('|').LastOrDefault().Trim())
                 },
-                Category = node.QuerySelector(".content .category > a").InnerHtml
+                Category = node.QuerySelector(CategorySelector).InnerHtml
             };
         }
     }

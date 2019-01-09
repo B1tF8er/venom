@@ -6,11 +6,11 @@ namespace Venom
     using System.Collections.Generic;
     using System.Linq;
 
-    internal abstract class BaseParser : IParser
+    internal abstract class Parser : IParser
     {
         private readonly Func<HtmlNode, Article> toArticle;
 
-        internal BaseParser(Func<HtmlNode, Article> toArticle) =>
+        internal Parser(Func<HtmlNode, Article> toArticle) =>
             this.toArticle = toArticle ?? throw new ArgumentNullException(nameof(toArticle));
 
         public void Parse(HtmlDocument html, Uri uri)
