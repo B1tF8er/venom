@@ -7,11 +7,15 @@ namespace Venom
 
     internal class MetalSucksParser : BaseParser
     {
+        private const string ReviewsSelector = "article[itemtype='http://schema.org/Review']";
+        private const string ToursSelector = "article[itemtype='http://schema.org/NewsArticle']";
+        private const string VideosSelector = "article[itemtype='http://schema.org/VideoObject']";
+
         internal MetalSucksParser() : base(ToMetalSucksArticle) {}
 
         protected override void ParseReviews(HtmlNode documentNode)
         {
-            var reviews = GetArticles(documentNode, "article[itemtype='http://schema.org/Review']");
+            var reviews = GetArticles(documentNode, ReviewsSelector);
 
             // TODO: save to database
 
@@ -20,7 +24,7 @@ namespace Venom
 
         protected override void ParseTours(HtmlNode documentNode)
         {
-            var tours = GetArticles(documentNode, "article[itemtype='http://schema.org/NewsArticle']");
+            var tours = GetArticles(documentNode, ToursSelector);
 
             // TODO: save to database
 
@@ -29,7 +33,7 @@ namespace Venom
 
         protected override void ParseVideos(HtmlNode documentNode)
         {
-            var videos = GetArticles(documentNode, "article[itemtype='http://schema.org/VideoObject']");
+            var videos = GetArticles(documentNode, VideosSelector);
 
             // TODO: save to database
 

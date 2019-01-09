@@ -8,11 +8,15 @@ namespace Venom
 
     internal class MetalInjectionParser : BaseParser
     {
+        private const string ReviewsSelector = "article.category-reviews";
+        private const string ToursSelector = "article.category-tour-dates";
+        private const string VideosSelector = "article.type-video";
+
         internal MetalInjectionParser() : base(ToMetalInjectionArticle) {}
 
         protected override void ParseReviews(HtmlNode documentNode)
         {
-            var reviews = GetArticles(documentNode, "article.category-reviews");
+            var reviews = GetArticles(documentNode, ReviewsSelector);
 
             // TODO: save to database
 
@@ -21,7 +25,7 @@ namespace Venom
 
         protected override void ParseTours(HtmlNode documentNode)
         {
-            var tours = GetArticles(documentNode, "article.category-tour-dates");
+            var tours = GetArticles(documentNode, ToursSelector);
 
             // TODO: save to database
 
@@ -30,7 +34,7 @@ namespace Venom
 
         protected override void ParseVideos(HtmlNode documentNode)
         {
-            var videos = GetArticles(documentNode, "article.type-video");
+            var videos = GetArticles(documentNode, VideosSelector);
 
             // TODO: save to database
 
