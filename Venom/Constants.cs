@@ -24,5 +24,10 @@ namespace Venom
             internal const string TimeSelector = "time";
             internal const string CategorySelector = "span[itemprop='url'] a.category-tag";
         }
+
+        internal static class SqliteConstants
+        {
+            internal const string ConnectionString = "Data Source=venom.db";
+        }
     }
 }

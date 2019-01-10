@@ -2,6 +2,7 @@ namespace Venom
 {
     public class Article
     {
+        public int Id { get; set; }
         public string Uri { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }

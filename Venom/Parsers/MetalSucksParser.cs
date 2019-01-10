@@ -10,32 +10,11 @@ namespace Venom
     {
         internal MetalSucksParser() : base(ToMetalSucksArticle) {}
 
-        protected override void ParseReviews(HtmlNode documentNode)
-        {
-            var reviews = GetArticles(documentNode, ReviewsSelector);
+        protected override void ParseReviews(HtmlNode documentNode) => SaveArticles(documentNode, ReviewsSelector);
 
-            // TODO: save to database
+        protected override void ParseTours(HtmlNode documentNode) => SaveArticles(documentNode, ToursSelector);
 
-            return;
-        }
-
-        protected override void ParseTours(HtmlNode documentNode)
-        {
-            var tours = GetArticles(documentNode, ToursSelector);
-
-            // TODO: save to database
-
-            return;
-        }
-
-        protected override void ParseVideos(HtmlNode documentNode)
-        {
-            var videos = GetArticles(documentNode, VideosSelector);
-
-            // TODO: save to database
-
-            return;
-        }
+        protected override void ParseVideos(HtmlNode documentNode) => SaveArticles(documentNode, VideosSelector);
 
         private static Article ToMetalSucksArticle(HtmlNode node)
         {

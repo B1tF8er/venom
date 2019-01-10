@@ -31,7 +31,16 @@ namespace Venom
 
         protected abstract void ParseVideos(HtmlNode documentNode);
 
-        private protected IEnumerable<Article> GetArticles(HtmlNode documentNode, string selector) =>
+        private protected async void SaveArticles(HtmlNode documentNode, string selector)
+        {
+            using (var context = new Context()) 
+            {
+                await context.Articles.AddRangeAsync(GetArticles(documentNode, selector));
+                context.SaveChanges();
+            }
+        }
+
+        private IEnumerable<Article> GetArticles(HtmlNode documentNode, string selector) =>
             documentNode.QuerySelectorAll(selector).Select(toArticle);
     }
 }
