@@ -15,6 +15,9 @@ namespace Venom
 
         public void Parse(HtmlDocument html, Uri uri)
         {
+            if (html is null)
+                throw new ArgumentNullException(nameof(html));
+
             var documentNode = html.DocumentNode;
 
             if (uri.IsReviewCategory())
