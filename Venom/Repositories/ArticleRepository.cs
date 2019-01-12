@@ -10,7 +10,7 @@ namespace Venom
         {
             using (var context = new Context())
             {
-                articles = articles.Where(ArticleIsNew(context));
+                articles = articles.Where(ArticleIsNewIn(context));
 
                 if (articles.Any())
                 {
@@ -20,7 +20,7 @@ namespace Venom
             }
         }
 
-        private Func<Article, bool> ArticleIsNew(Context context) =>
+        private Func<Article, bool> ArticleIsNewIn(Context context) =>
             article => !context.Authors.AsEnumerable().Any(author => author == article.Author);
     }
 }

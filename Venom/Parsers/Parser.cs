@@ -2,7 +2,6 @@ namespace Venom
 {
     using Fizzler.Systems.HtmlAgilityPack;
     using HtmlAgilityPack;
-    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
