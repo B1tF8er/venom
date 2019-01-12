@@ -8,7 +8,7 @@ namespace Venom
 
     internal class MetalSucksParser : Parser
     {
-        internal MetalSucksParser() : base(ToMetalSucksArticle) {}
+        internal MetalSucksParser() : base(ToMetalSucksArticle, new ArticleRepository()) {}
 
         protected override void ParseReviews(HtmlNode documentNode) => SaveArticles(documentNode, ReviewsSelector);
 

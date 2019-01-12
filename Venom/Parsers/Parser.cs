@@ -6,14 +6,18 @@ namespace Venom
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Linq.Expressions;
 
     internal abstract class Parser : IParser
     {
         private readonly Func<HtmlNode, Article> toArticle;
 
-        internal Parser(Func<HtmlNode, Article> toArticle) =>
+        private readonly IArticleRepository articleRepository;
+
+        internal Parser(Func<HtmlNode, Article> toArticle, IArticleRepository articleRepository)
+        {
             this.toArticle = toArticle ?? throw new ArgumentNullException(nameof(toArticle));
+            this.articleRepository = articleRepository;
+        }
 
         public void Parse(HtmlDocument html, Uri uri)
         {
@@ -36,24 +40,8 @@ namespace Venom
 
         protected abstract void ParseVideos(HtmlNode documentNode);
 
-        private protected async void SaveArticles(HtmlNode documentNode, string selector)
-        {
-            var articles = GetArticles(documentNode, selector);
-
-            using (var context = new Context()) 
-            {
-                articles = articles
-                    .Where(article => 
-                        !context.Authors.AsEnumerable().Any(author => author == article.Author)
-                    );
-
-                if (articles.Any())
-                {
-                    await context.Articles.AddRangeAsync(articles);
-                    await context.SaveChangesAsync();
-                }
-            }
-        }
+        private protected void SaveArticles(HtmlNode documentNode, string selector) =>
+            articleRepository.AddAsync(GetArticles(documentNode, selector)); 
 
         private IEnumerable<Article> GetArticles(HtmlNode documentNode, string selector) =>
             documentNode.QuerySelectorAll(selector).Select(toArticle);
