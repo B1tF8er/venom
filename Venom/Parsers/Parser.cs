@@ -15,14 +15,12 @@ namespace Venom
         internal Parser(Func<HtmlNode, Article> toArticle, IArticleRepository articleRepository)
         {
             this.toArticle = toArticle ?? throw new ArgumentNullException(nameof(toArticle));
-            this.articleRepository = articleRepository;
+            this.articleRepository = articleRepository ?? throw new ArgumentNullException(nameof(articleRepository));;
         }
 
-        public void Parse(HtmlDocument html, Uri uri)
+        public void Parse(Uri uri)
         {
-            if (html is null)
-                throw new ArgumentNullException(nameof(html));
-
+            var html = GetHtml(uri);
             var documentNode = html.DocumentNode;
 
             if (uri.IsReviewCategory())
@@ -38,6 +36,14 @@ namespace Venom
         protected abstract void ParseTours(HtmlNode documentNode);
 
         protected abstract void ParseVideos(HtmlNode documentNode);
+
+        private HtmlDocument GetHtml(Uri uri)
+        {
+            var web = new HtmlWeb();
+            var html = web.Load(uri);
+
+            return html;
+        }
 
         private protected void SaveArticles(HtmlNode documentNode, string selector) =>
             articleRepository.AddAsync(GetArticles(documentNode, selector)); 

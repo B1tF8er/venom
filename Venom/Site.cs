@@ -6,29 +6,22 @@ namespace Venom
     internal class Site
     {
         private const string BaseUri = "http://www.{0}.net";
-        private readonly Type type;
+        internal Type Type { get; }
+        private readonly IEnumerable<string> paths;
         private readonly string siteUri;
 
-        internal Site(Type type)
+        internal Site(Type type, IEnumerable<string> paths)
         {
-            this.type = type;
+            Type = type;
+            this.paths = paths;
+
             siteUri = string.Format(BaseUri, type);
         }
 
-        internal IEnumerable<Category> Categories()
+        internal IEnumerable<Uri> Uris()
         {
-            if (type == Type.MetalInjection)
-            {
-                yield return new Category(type, siteUri, "category/reviews");
-                yield return new Category(type, siteUri, "category/tour-dates");
-                yield return new Category(type, siteUri, "channels/music-videos");
-            }
-            else if (type == Type.MetalSucks)
-            {
-                yield return new Category(type, siteUri, "category/reviews");
-                yield return new Category(type, siteUri, "category/tour-de-force");
-                yield return new Category(type, siteUri, "category/cinemetal");
-            }
+            foreach (var path in paths)
+                yield return new Uri($"{siteUri}/{path}");
         }
     }
 }
