@@ -42,17 +42,16 @@ namespace Venom
 
             using (var context = new Context()) 
             {
-                var dbAuthors = context.Authors.AsEnumerable();
+                articles = articles
+                    .Where(article => 
+                        !context.Authors.AsEnumerable().Any(author => author == article.Author)
+                    );
 
-                foreach (var article in articles)
+                if (articles.Any())
                 {
-                    var dbAuthor = dbAuthors.FirstOrDefault(a => a == article.Author);
-
-                    if (dbAuthor is null)
-                        await context.Articles.AddRangeAsync(article);
+                    await context.Articles.AddRangeAsync(articles);
+                    await context.SaveChangesAsync();
                 }
-
-                context.SaveChanges();
             }
         }
 
