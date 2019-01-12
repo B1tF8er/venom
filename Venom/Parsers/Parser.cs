@@ -2,9 +2,11 @@ namespace Venom
 {
     using Fizzler.Systems.HtmlAgilityPack;
     using HtmlAgilityPack;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
 
     internal abstract class Parser : IParser
     {
@@ -36,9 +38,20 @@ namespace Venom
 
         private protected async void SaveArticles(HtmlNode documentNode, string selector)
         {
+            var articles = GetArticles(documentNode, selector);
+
             using (var context = new Context()) 
             {
-                await context.Articles.AddRangeAsync(GetArticles(documentNode, selector));
+                var dbAuthors = context.Authors.AsEnumerable();
+
+                foreach (var article in articles)
+                {
+                    var dbAuthor = dbAuthors.FirstOrDefault(a => a == article.Author);
+
+                    if (dbAuthor is null)
+                        await context.Articles.AddRangeAsync(article);
+                }
+
                 context.SaveChanges();
             }
         }

@@ -19,6 +19,7 @@ namespace Venom
         private static Article ToMetalSucksArticle(HtmlNode node)
         {
             var author = node.QuerySelector(AuthorSelector);
+            var date = author.ParentNode.ParentNode.QuerySelector(TimeSelector).Attributes[1].DeEntitizeValue;
 
             return new Article
             {
@@ -28,7 +29,7 @@ namespace Venom
                 {
                     Name = author.InnerHtml,
                     Uri = author.Attributes.FirstOrDefault().DeEntitizeValue,
-                    Date = Convert.ToDateTime(author.ParentNode.ParentNode.QuerySelector(TimeSelector).Attributes[1].DeEntitizeValue)
+                    Date = Convert.ToDateTime(Convert.ToDateTime(date).ToString("yyyy-MM-dd"))
                 },
                 Category = node.QuerySelector(CategorySelector).InnerHtml
             };
