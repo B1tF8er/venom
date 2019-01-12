@@ -15,7 +15,6 @@ namespace Venom
         public static bool operator !=(Author left, Author right) =>
             !left.Equals(right);
 
-        // override object.Equals
         public override bool Equals(object obj) =>
             Equals(obj as Author);
 
@@ -29,7 +28,6 @@ namespace Venom
                 this.Date == other.Date;
         }
         
-        // override object.GetHashCode
         public override int GetHashCode()
         {
             var hashCode = 175704;
