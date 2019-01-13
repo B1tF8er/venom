@@ -6,11 +6,7 @@
     
     class Symbiote
     {
-        static void Main(string[] args)
-        {
-            var crawler = new Crawler();
-            crawler.Crawl(Sites());
-        }
+        static void Main(string[] args) => Crawler.Crawl(Sites());
 
         static IEnumerable<Site> Sites()
         {

@@ -1,18 +1,17 @@
 namespace Venom
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     
-    internal class Crawler
+    internal static class Crawler
     {
-        internal void Crawl(IEnumerable<Site> sites) =>
-            sites.ToList().ForEach(site => Crawl(site.Type, site.Uris()));
+        internal static void Crawl(IEnumerable<Site> sites) =>
+            sites.ToList().ForEach(Crawl);
 
-        private void Crawl(Type type, IEnumerable<Uri> uris)
+        private static void Crawl(Site site)
         {
-            var parser = ParserFactory.GetParser(type);
-            uris.ToList().ForEach(uri => parser.Parse(uri));
+            var parser = ParserFactory.GetParser(site.Type);
+            site.Uris().ToList().ForEach(parser.Parse);
         }
     }
 }
