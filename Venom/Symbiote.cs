@@ -1,17 +1,15 @@
 ﻿namespace Venom
 {
-    using System;
-    using System.Collections.Generic;
-    using static Constants;
+    using Microsoft.Extensions.DependencyInjection;
     
     class Symbiote
     {
-        static void Main(string[] args) => Crawler.Crawl(Sites());
-
-        static IEnumerable<Site> Sites()
+        static void Main(string[] args)
         {
-            yield return new Site(Type.MetalInjection, MetalInjectionConstants.Paths);
-            yield return new Site(Type.MetalSucks, MetalSucksConstants.Paths);
+            var serviceProvider = Startup.ConfigureServiceProvider();
+            var crawler = serviceProvider.GetService<ICrawler>();
+
+            crawler.Start();
         }
     }
 }
