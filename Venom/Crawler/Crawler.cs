@@ -12,6 +12,9 @@ namespace Venom
 
         private void Crawl(Site site)
         {
+            if (site is null)
+                throw new System.ArgumentNullException(nameof(site));
+
             var parser = ParserFactory.GetParser(site.Type);
             site.Uris().AsParallel().ForAll(parser.Parse);
         }
