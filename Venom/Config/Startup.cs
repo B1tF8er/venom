@@ -8,17 +8,13 @@ namespace Venom
 
         static Startup() => services = new ServiceCollection();
 
-        internal static ServiceProvider ConfigureServiceProvider()
-        {
-            services.Configure();
+        internal static ServiceProvider ConfigureServiceProvider() => services.Configure().BuildServiceProvider();
 
-            var serviceProvider = services.BuildServiceProvider();
-            return serviceProvider;
-        }
-
-        private static void Configure(this IServiceCollection services)
+        private static IServiceCollection Configure(this IServiceCollection services)
         {
             services.AddSingleton<ICrawler, Crawler>();
+
+            return services;
         }
     }
 }
