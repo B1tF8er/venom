@@ -1,24 +1,26 @@
 namespace Venom
 {
     using System;
+    using System.Collections.Generic;
 
     internal static class ParserFactory
     {
-        internal static IParser GetParser(Type type)
+        private static readonly IDictionary<Type, IParser> parsers;
+        
+        static ParserFactory()
         {
-            switch (type)
+            parsers = new Dictionary<Type, IParser>
             {
-                case Type.MetalInjection:
-                    return GetMetalInjectionParser();
-                case Type.MetalSucks:
-                    return GetMetalSucksParser();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(Type));
-            }
+                { Type.MetalInjection, new MetalInjectionParser() },
+                { Type.MetalSucks, new MetalSucksParser() },
+            };
         }
 
-        private static IParser GetMetalInjectionParser() => new MetalInjectionParser();
-
-        private static IParser GetMetalSucksParser() => new MetalSucksParser();
+        internal static IParser GetParser(Type type)
+        {
+            parsers.TryGetValue(type, out var parser);
+            
+            return parser;
+        }
     }
 }
