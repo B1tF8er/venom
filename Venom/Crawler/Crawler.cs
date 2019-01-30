@@ -1,5 +1,6 @@
 namespace Venom
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using static Constants;
@@ -13,7 +14,7 @@ namespace Venom
         private void Crawl(Site site)
         {
             if (site is null)
-                throw new System.ArgumentNullException(nameof(site));
+                throw new ArgumentNullException(nameof(site));
 
             var parser = ParserFactory.GetParser(site.Type);
             site.Uris().AsParallel().ForAll(parser.Parse);
