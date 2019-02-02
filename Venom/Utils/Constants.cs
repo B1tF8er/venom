@@ -1,6 +1,8 @@
 namespace Venom
 {
+    using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
 
     internal static class Constants
@@ -42,7 +44,10 @@ namespace Venom
 
         internal static class SqliteConstants
         {
-            internal const string ConnectionString = "Data Source=venom.db";
+            private const string ParentDirectory = "..";
+            private const string DatabaseName = "venom.db";
+            private static readonly string[] paths = new string[5] { AppDomain.CurrentDomain.BaseDirectory, ParentDirectory, ParentDirectory, ParentDirectory, DatabaseName };
+            internal static readonly string ConnectionString = $"Data Source={Path.GetFullPath(Path.Combine(paths))}";
         }
     }
 }
