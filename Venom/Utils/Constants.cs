@@ -46,8 +46,15 @@ namespace Venom
         {
             private const string ParentDirectory = "..";
             private const string DatabaseName = "venom.db";
-            private static readonly string[] paths = new string[5] { AppDomain.CurrentDomain.BaseDirectory, ParentDirectory, ParentDirectory, ParentDirectory, DatabaseName };
-            internal static readonly string ConnectionString = $"Data Source={Path.GetFullPath(Path.Combine(paths))}";
+            private static readonly string[] Paths = new List<string> 
+            { 
+                AppDomain.CurrentDomain.BaseDirectory,
+                ParentDirectory,
+                ParentDirectory,
+                ParentDirectory,
+                DatabaseName
+            }.ToArray();
+            internal static readonly string ConnectionString = $"Data Source={Path.GetFullPath(Path.Combine(Paths))}";
         }
     }
 }
