@@ -13,7 +13,6 @@
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
                 Environment.FailFast("An unexpected error occurred.", ex);
             }
         }
