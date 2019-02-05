@@ -8,7 +8,9 @@ namespace Venom
 
     internal class MetalInjectionParser : Parser
     {
-        internal MetalInjectionParser() : base(ToMetalInjectionArticle, new ArticleRepository()) {}
+        private static readonly IArticleRepository articleRepository =  new ArticleRepository();
+
+        internal MetalInjectionParser() : base(ToMetalInjectionArticle, articleRepository) {}
 
         protected override void ParseReviews(HtmlNode documentNode) => SaveArticles(documentNode, ReviewsSelector);
 
