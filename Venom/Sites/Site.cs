@@ -2,6 +2,7 @@ namespace Venom
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     internal class Site
     {
@@ -12,10 +13,20 @@ namespace Venom
 
         internal Site(Type type, IEnumerable<string> paths)
         {
+            Guard(paths);
+
             Type = type;
             this.paths = paths;
 
             siteUri = string.Format(BaseUri, type);
+        }
+
+        private void Guard(IEnumerable<string> paths)
+        {
+            if (paths is null)
+                throw new ArgumentNullException(nameof(paths));
+            if (!paths.Any())
+                throw new ArgumentNullException(nameof(paths));
         }
 
         internal IEnumerable<Uri> Uris()
