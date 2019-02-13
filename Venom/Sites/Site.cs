@@ -26,7 +26,9 @@ namespace Venom
             if (paths is null)
                 throw new ArgumentNullException(nameof(paths));
             if (!paths.Any())
-                throw new ArgumentNullException(nameof(paths));
+                throw new InvalidOperationException(nameof(paths));
+            if (paths.Any(p => string.IsNullOrEmpty(p) || string.IsNullOrWhiteSpace(p)))
+                throw new InvalidOperationException(nameof(paths));
         }
 
         internal IEnumerable<Uri> Uris()
