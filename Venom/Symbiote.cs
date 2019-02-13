@@ -22,7 +22,7 @@
             var serviceProvider = Startup.ConfigureServiceProvider();
             var crawler = serviceProvider.GetService<ICrawler>();
 
-            crawler.Start();
+            crawler.Crawl();
         }
     }
 }
