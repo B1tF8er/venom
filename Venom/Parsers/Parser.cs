@@ -8,6 +8,8 @@ namespace Venom
 
     internal abstract class Parser : IParser
     {
+        private HtmlDocument Html;
+
         private readonly Func<HtmlNode, Article> toArticle;
 
         private readonly IArticleRepository articleRepository;
@@ -15,40 +17,37 @@ namespace Venom
         internal Parser(Func<HtmlNode, Article> toArticle, IArticleRepository articleRepository)
         {
             this.toArticle = toArticle ?? throw new ArgumentNullException(nameof(toArticle));
-            this.articleRepository = articleRepository ?? throw new ArgumentNullException(nameof(articleRepository));;
+            this.articleRepository = articleRepository ?? throw new ArgumentNullException(nameof(articleRepository));
         }
 
         public void Parse(Uri uri)
         {
-            var html = GetHtml(uri);
-            var documentNode = html.DocumentNode;
+            GetHtml(uri);
 
             if (uri.IsReviewCategory())
-                ParseReviews(documentNode);
+                ParseReviews();
             else if (uri.IsTourCategory())
-                ParseTours(documentNode);
+                ParseTours();
             else if (uri.IsVideoCategory())
-                ParseVideos(documentNode);
+                ParseVideos();
         }
 
-        protected abstract void ParseReviews(HtmlNode documentNode);
+        protected abstract void ParseReviews();
 
-        protected abstract void ParseTours(HtmlNode documentNode);
+        protected abstract void ParseTours();
 
-        protected abstract void ParseVideos(HtmlNode documentNode);
+        protected abstract void ParseVideos();
 
-        private HtmlDocument GetHtml(Uri uri)
+        private void GetHtml(Uri uri)
         {
             var web = new HtmlWeb();
-            var html = web.Load(uri);
-
-            return html;
+            Html = web.Load(uri);
         }
 
-        private protected void SaveArticles(HtmlNode documentNode, string selector) =>
-            articleRepository.AddAsync(GetArticles(documentNode, selector)); 
+        private protected void SaveArticles(string selector) =>
+            articleRepository.AddAsync(GetArticles(selector));
 
-        private IEnumerable<Article> GetArticles(HtmlNode documentNode, string selector) =>
-            documentNode.QuerySelectorAll(selector).Select(toArticle);
+        private IEnumerable<Article> GetArticles(string selector) =>
+            Html.DocumentNode.QuerySelectorAll(selector).Select(toArticle);
     }
 }

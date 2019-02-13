@@ -12,11 +12,11 @@ namespace Venom
 
         internal MetalSucksParser() : base(ToMetalSucksArticle, articleRepository) {}
 
-        protected override void ParseReviews(HtmlNode documentNode) => SaveArticles(documentNode, ReviewsSelector);
+        protected override void ParseReviews() => SaveArticles(ReviewsSelector);
 
-        protected override void ParseTours(HtmlNode documentNode) => SaveArticles(documentNode, ToursSelector);
+        protected override void ParseTours() => SaveArticles(ToursSelector);
 
-        protected override void ParseVideos(HtmlNode documentNode) => SaveArticles(documentNode, VideosSelector);
+        protected override void ParseVideos() => SaveArticles(VideosSelector);
 
         private static Article ToMetalSucksArticle(HtmlNode node)
         {
