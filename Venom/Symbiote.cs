@@ -2,14 +2,15 @@
 {
     using Microsoft.Extensions.DependencyInjection;
     using System;
-    
+    using static Performance;
+
     class Symbiote
     {
         static void Main(string[] args)
         {
             try
             {
-                Start();
+                nameof(Start).Measure(Start);
             }
             catch (Exception ex)
             {
