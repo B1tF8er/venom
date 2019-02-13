@@ -13,8 +13,7 @@ namespace Venom
             action();
             stopwatch.Stop();
 
-            var seconds = stopwatch.ElapsedMilliseconds / 1000m;
-            Console.WriteLine($"{actionName} took {seconds} sec");
+            Console.WriteLine($"{actionName} took {stopwatch.ElapsedMilliseconds / 1000m} sec");
         }
     }
 }
