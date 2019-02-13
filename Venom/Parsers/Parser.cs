@@ -8,7 +8,7 @@ namespace Venom
 
     internal abstract class Parser : IParser
     {
-        private HtmlDocument Html;
+        private HtmlDocument html;
 
         private readonly Func<HtmlNode, Article> toArticle;
 
@@ -41,13 +41,13 @@ namespace Venom
         private void GetHtml(Uri uri)
         {
             var web = new HtmlWeb();
-            Html = web.Load(uri);
+            html = web.Load(uri);
         }
 
         private protected void SaveArticles(string selector) =>
             articleRepository.AddAsync(GetArticles(selector));
 
         private IEnumerable<Article> GetArticles(string selector) =>
-            Html.DocumentNode.QuerySelectorAll(selector).Select(toArticle);
+            html.DocumentNode.QuerySelectorAll(selector).Select(toArticle);
     }
 }
