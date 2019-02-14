@@ -8,7 +8,7 @@ namespace Venom
     {
         private readonly IEnumerable<Site> sites;
 
-        public Crawler() => sites = new Sites();
+        public Crawler() => sites = new SiteEnumerator();
 
         public void Crawl() => sites.AsParallel().ForAll(Crawl);
 
