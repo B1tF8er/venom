@@ -1,14 +1,17 @@
 namespace Venom
 {
+    using System.Collections;
     using System.Collections.Generic;
     using static Constants;
 
-    internal static class SiteEnumerator
+    internal class SiteEnumerator : IEnumerable<Site>
     {
-        internal static IEnumerable<Site> Sites()
+        public IEnumerator<Site> GetEnumerator()
         {
             yield return new Site(Type.MetalInjection, MetalInjectionConstants.Paths);
             yield return new Site(Type.MetalSucks, MetalSucksConstants.Paths);
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

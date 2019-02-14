@@ -3,11 +3,14 @@ namespace Venom
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using static SiteEnumerator;
     
     internal class Crawler : ICrawler
     {
-        public void Crawl() => Sites().AsParallel().ForAll(Crawl);
+        private readonly IEnumerable<Site> sites;
+
+        public Crawler() => sites = new Sites();
+
+        public void Crawl() => sites.AsParallel().ForAll(Crawl);
 
         private void Crawl(Site site)
         {
