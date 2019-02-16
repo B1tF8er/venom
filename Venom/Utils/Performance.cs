@@ -1,11 +1,19 @@
 namespace Venom
 {
+    using Bit.Logger.Contract;
     using System;
     using System.Diagnostics;
 
-    internal static class Performance
+    internal class Performance
     {
-        internal static void Measure(this string actionName, Action action)
+        private readonly ILoggerFactory loggerFactory;
+
+        internal Performance(ILoggerFactory loggerFactory)
+        {
+            this.loggerFactory = loggerFactory;
+        }
+
+        internal void Measure(Action action)
         {
             var stopwatch = new Stopwatch();
 
@@ -13,7 +21,7 @@ namespace Venom
             action();
             stopwatch.Stop();
 
-            Console.WriteLine($"{actionName} took {stopwatch.ElapsedMilliseconds / 1000m} sec");
+            loggerFactory.Information($"Took {stopwatch.ElapsedMilliseconds / 1000m} sec");
         }
     }
 }
