@@ -7,7 +7,7 @@ namespace Venom
 
     internal static class Constants
     {
-        internal static class MetalInjectionConstants
+        internal static class MetalInjection
         {
             internal static readonly IEnumerable<string> Paths = new List<string>
             {
@@ -24,7 +24,7 @@ namespace Venom
             internal const string CategorySelector = ".content .category > a";
         }
 
-        internal static class MetalSucksConstants
+        internal static class MetalSucks
         {
             internal static readonly IEnumerable<string> Paths = new List<string>
             {
@@ -42,7 +42,7 @@ namespace Venom
             internal const string CategorySelector = "span[itemprop='url'] a.category-tag";
         }
 
-        internal static class SqliteConstants
+        internal static class Sqlite
         {
             private const string ParentDirectory = "..";
             private const string DatabaseName = "venom.db";
@@ -55,6 +55,11 @@ namespace Venom
                 DatabaseName
             }.ToArray();
             internal static readonly string ConnectionString = $"Data Source={Path.GetFullPath(Path.Combine(Paths))}";
+        }
+
+        internal enum Error
+        {
+            Unexpected
         }
     }
 }

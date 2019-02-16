@@ -4,7 +4,7 @@ namespace Venom
     using HtmlAgilityPack;
     using System;
     using System.Linq;
-    using static Constants.MetalInjectionConstants;
+    using static Constants.MetalInjection;
 
     internal class MetalInjectionParser : Parser
     {

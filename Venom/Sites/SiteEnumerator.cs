@@ -8,8 +8,8 @@ namespace Venom
     {
         public IEnumerator<Site> GetEnumerator()
         {
-            yield return new Site(Type.MetalInjection, MetalInjectionConstants.Paths);
-            yield return new Site(Type.MetalSucks, MetalSucksConstants.Paths);
+            yield return new Site(Type.MetalInjection, MetalInjection.Paths);
+            yield return new Site(Type.MetalSucks, MetalSucks.Paths);
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

@@ -1,7 +1,7 @@
 namespace Venom
 {
     using Microsoft.EntityFrameworkCore;
-    using static Constants.SqliteConstants;
+    using static Constants.Sqlite;
 
     public class Context : DbContext
     {
