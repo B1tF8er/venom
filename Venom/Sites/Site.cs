@@ -36,5 +36,8 @@ namespace Venom
             foreach (var path in paths)
                 yield return new Uri($"{siteUri}/{path}");
         }
+
+        public override string ToString() =>
+            $"{Type} - Paths: {paths.Select(p => $"[{p}]").Aggregate((a, b) => $"{a}, {b}")}";
     }
 }
