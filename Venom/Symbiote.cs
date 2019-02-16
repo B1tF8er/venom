@@ -1,6 +1,5 @@
 ﻿namespace Venom
 {
-    using Bit.Logger.Contract;
     using Bit.Logger.Factory;
     using Microsoft.Extensions.DependencyInjection;
     using System;
