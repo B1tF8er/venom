@@ -8,10 +8,7 @@ namespace Venom
     {
         private readonly ILoggerFactory loggerFactory;
 
-        internal Performance(ILoggerFactory loggerFactory)
-        {
-            this.loggerFactory = loggerFactory;
-        }
+        internal Performance(ILoggerFactory loggerFactory) => this.loggerFactory = loggerFactory;
 
         internal void Measure(Action action)
         {
