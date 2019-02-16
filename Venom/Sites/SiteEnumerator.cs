@@ -10,6 +10,7 @@ namespace Venom
         {
             yield return new Site(Type.MetalInjection, MetalInjectionConstants.Paths);
             yield return new Site(Type.MetalSucks, MetalSucksConstants.Paths);
+            yield return new Site(Type.MetalSucks, new List<string>() { "", null, " ", null, "a" });
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
