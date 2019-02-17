@@ -3,7 +3,7 @@
     using Bit.Logger.Factory;
     using Microsoft.Extensions.DependencyInjection;
     using System;
-    using static Venom.Constants;
+    using static Constants;
 
     class Symbiote
     {
@@ -15,7 +15,7 @@
             }
             catch (Exception ex)
             {
-                Environment.FailFast(Error.Unexpected.ToString(), ex);
+                Environment.FailFast($"{Error.Unexpected}", ex);
             }
         }
 
