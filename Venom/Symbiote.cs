@@ -3,7 +3,6 @@
     using Bit.Logger.Factory;
     using Microsoft.Extensions.DependencyInjection;
     using System;
-    using static Constants;
 
     class Symbiote
     {

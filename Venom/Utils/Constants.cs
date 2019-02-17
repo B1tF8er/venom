@@ -56,10 +56,5 @@ namespace Venom
             }.ToArray();
             internal static readonly string ConnectionString = $"Data Source={Path.GetFullPath(Path.Combine(Paths))}";
         }
-
-        internal enum Error
-        {
-            Unexpected
-        }
     }
 }
