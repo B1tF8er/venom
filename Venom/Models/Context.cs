@@ -6,6 +6,7 @@ namespace Venom
     public class Context : DbContext
     {
         public DbSet<Article> Articles { get; set; }
+        
         public DbSet<Author> Authors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>

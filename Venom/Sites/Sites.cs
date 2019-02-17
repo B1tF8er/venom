@@ -4,7 +4,7 @@ namespace Venom
     using System.Collections.Generic;
     using static Constants;
 
-    internal class SiteEnumerator : IEnumerable<Site>
+    internal class Sites : IEnumerable<Site>
     {
         public IEnumerator<Site> GetEnumerator()
         {

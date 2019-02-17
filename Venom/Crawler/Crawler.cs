@@ -6,11 +6,7 @@ namespace Venom
     
     internal class Crawler : ICrawler
     {
-        private readonly IEnumerable<Site> sites;
-
-        public Crawler() => sites = new SiteEnumerator();
-
-        public void Crawl() => sites.AsParallel().ForAll(Crawl);
+        public void Crawl() => new Sites().AsParallel().ForAll(Crawl);
 
         private void Crawl(Site site)
         {
