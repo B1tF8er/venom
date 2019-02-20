@@ -6,17 +6,36 @@ namespace Venom
 
     internal static class Startup
     {
-        private static readonly ServiceCollection services;
+        private static ServiceCollection services;
 
-        static Startup() => services = new ServiceCollection();
+        private static ServiceProvider serviceProvider;
 
-        internal static ServiceProvider ConfigureServiceProvider() => services.AddServices().BuildServiceProvider();
-
-        private static IServiceCollection AddServices(this IServiceCollection services)
+        internal static void Start()
         {
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+            Build();
+            RunCrawler();
+        }
 
-            return services;
+        private static void Build()
+        {
+            AddServices();
+            serviceProvider = services.BuildServiceProvider();
+        }
+
+        private static void AddServices()
+        {
+            services = new ServiceCollection();
+            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+        }
+
+        private static void RunCrawler()
+        {
+            var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
+            loggerFactory.AddConsoleSource();
+
+            var performance = new Performance(loggerFactory);
+            var crawler = new Crawler();
+            performance.Measure(crawler.Crawl);
         }
     }
 }

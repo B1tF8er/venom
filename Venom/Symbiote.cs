@@ -1,7 +1,5 @@
 ﻿namespace Venom
 {
-    using Bit.Logger.Factory;
-    using Microsoft.Extensions.DependencyInjection;
     using System;
 
     class Symbiote
@@ -10,24 +8,12 @@
         {
             try
             {
-                Start();
+                Startup.Start();
             }
             catch (Exception ex)
             {
                 Environment.FailFast($"{Error.Unexpected}", ex);
             }
-        }
-
-        static void Start()
-        {
-            var serviceProvider = Startup.ConfigureServiceProvider();
-            
-            var loggerFactory = ActivatorUtilities.CreateInstance<LoggerFactory>(serviceProvider);
-            loggerFactory.AddConsoleSource();
-
-            var performance = new Performance(loggerFactory);
-            var crawler = new Crawler();
-            performance.Measure(crawler.Crawl);
         }
     }
 }
