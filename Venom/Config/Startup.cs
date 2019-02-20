@@ -35,7 +35,7 @@ namespace Venom
 
             var performance = new Performance(loggerFactory);
             var crawler = new Crawler();
-            performance.Measure(crawler.Crawl);
+            performance.Measure(crawler.Crawl, nameof(Crawler), nameof(crawler.Crawl));
         }
     }
 }
