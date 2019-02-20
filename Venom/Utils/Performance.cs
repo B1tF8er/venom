@@ -10,15 +10,16 @@ namespace Venom
 
         internal Performance(ILoggerFactory loggerFactory) => this.loggerFactory = loggerFactory;
 
-        internal void Measure(Action action, string className, string methodName)
+        internal void Measure(Data data)
         {
             var stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            action();
+            data.Action();
             stopwatch.Stop();
 
-            loggerFactory.Information($"[{className}.{methodName}] Took {stopwatch.ElapsedMilliseconds / 1000m} sec");
+            var seconds = stopwatch.ElapsedMilliseconds / 1000m;
+            loggerFactory.Information($"[{data.ClassName}.{data.MethodName}] Took {seconds} sec");
         }
     }
 }
