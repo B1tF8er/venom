@@ -1,7 +1,7 @@
 namespace Venom
 {
+    using Bit.Logger;
     using Bit.Logger.Contract;
-    using Bit.Logger.Factory;
     using Microsoft.Extensions.DependencyInjection;
 
     internal static class Startup
@@ -25,15 +25,15 @@ namespace Venom
         private static void AddServices()
         {
             services = new ServiceCollection();
-            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+            services.AddSingleton<ILogger, Logger>();
         }
 
         private static void RunCrawler()
         {
-            var loggerFactory = serviceProvider.GetService<ILoggerFactory>();
-            loggerFactory.AddConsoleSource();
+            var logger = serviceProvider.GetService<ILogger>();
+            logger.AddConsoleSource();
 
-            var performance = new Performance(loggerFactory);
+            var performance = new Performance(logger);
             var crawler = new Crawler();
             performance.Measure(Data.For(crawler.Crawl));
         }

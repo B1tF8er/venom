@@ -6,9 +6,9 @@ namespace Venom
 
     internal class Performance
     {
-        private readonly ILoggerFactory loggerFactory;
+        private readonly ILogger logger;
 
-        internal Performance(ILoggerFactory loggerFactory) => this.loggerFactory = loggerFactory;
+        internal Performance(ILogger logger) => this.logger = logger;
 
         internal void Measure(Data data)
         {
@@ -19,7 +19,7 @@ namespace Venom
             stopwatch.Stop();
 
             var seconds = stopwatch.ElapsedMilliseconds / 1000m;
-            loggerFactory.Information($"[{data.ClassName}.{data.MethodName}] Took {seconds} sec");
+            logger.Information($"[{data.ClassName}.{data.MethodName}] Took {seconds} sec");
         }
     }
 }
