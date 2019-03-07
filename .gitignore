@@ -32,3 +32,10 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+# NodeJs
+node_modules
+build
+npm-debug.log
+*.env
+.DS_Store
