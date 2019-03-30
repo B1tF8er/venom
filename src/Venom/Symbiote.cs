@@ -8,7 +8,7 @@
         {
             try
             {
-                Startup.Start();
+                App.Start();
             }
             catch (Exception ex)
             {

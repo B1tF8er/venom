@@ -8,7 +8,7 @@ namespace Venom
     {
         private readonly ILogger logger;
 
-        internal Performance(ILogger logger) => this.logger = logger;
+        public Performance(ILogger logger) => this.logger = logger;
 
         internal void Measure(Data data)
         {
